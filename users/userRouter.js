@@ -41,6 +41,7 @@ router.post('/:id/posts', (req, res) => {
 });
 
 router.get('/', (req, res) => {
+  // const message = process.env.MSG || "Hello World";
   db.get()
   .then(user => {
     res.status(200).json(user);
@@ -104,25 +105,25 @@ router.put('/:id',  (req, res) => {
 
 //custom middleware
 
-function validateUserId(req, res, next) {
-  const id = db.getById(req.params.id)
-  .then( userId )
-  userId === id ? req.user = userId 
-  : !name ? res.status(400).json({ message: "missing required name field" }) 
-  : next();
-}
+// function validateUserId(req, res, next) {
+//   const id = db.getById(req.params.id)
+//   .then( userId )
+//   userId === id ? req.user = userId 
+//   : !name ? res.status(400).json({ message: "missing required name field" }) 
+//   : next();
+// }
 //Object.keys(req.body).length === 0, 
-function validateUser(req, res, next) {
-  !req.body ? res.status(400).json({ message: "Missing user data"})
-  : !req.body.name ? res.status(400).json({ message: "Missing required name field" }) 
-  : next();
-}
+// function validateUser(req, res, next) {
+//   !req.body ? res.status(400).json({ message: "Missing user data"})
+//   : !req.body.name ? res.status(400).json({ message: "Missing required name field" }) 
+//   : next();
+// }
 
-function validatePost(req, res, next) {
-  console.log('test');
-  !req.body ? res.status(400).json({ message: "Missing post data" }) 
-  : !res.body.text ? res.status(400).json ({ message: "Missing required text field" }) 
-  : next();
-}
+// function validatePost(req, res, next) {
+//   console.log('test');
+//   !req.body ? res.status(400).json({ message: "Missing post data" }) 
+//   : !res.body.text ? res.status(400).json ({ message: "Missing required text field" }) 
+//   : next();
+// }
 
 module.exports = router;
