@@ -14,8 +14,8 @@ const server = express();
 //   res.send(`<h2>Let's write some middleware!</h2>`);
 // });
 
-server.use('/api/user', userRouter);
-server.use('/api/posts', postRouter);
+server.use('/', userRouter);
+
 
 //middleware
 
