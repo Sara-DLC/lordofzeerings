@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.use(express.json());
 
-router.post('/', validateUser, (req, res) => {
+router.post('/', (req, res) => {
   const { text, user_id } = posts.insert(req.body)
   .then( addText => {
     text || user_id ? res.status(400).json({ errorMessage: "Please provide name for the user."}) : res.status(201).json(addText);
@@ -18,7 +18,7 @@ router.post('/', validateUser, (req, res) => {
   });
 });
 
-router.post('/:id/posts', validateUserId, validatePost, (req, res) => {
+router.post('/:id/posts', (req, res) => {
   const id = req.params.id;
   const { text, user_id } = req.body
   db.getById(id)
@@ -51,7 +51,7 @@ router.get('/', (req, res) => {
   })
 });
 
-router.get('/:id', validateUserId, (req, res) => {
+router.get('/:id',  (req, res) => {
   const id = req.params.id;
   db.getById(id)
   .then(userById => {
@@ -63,7 +63,7 @@ router.get('/:id', validateUserId, (req, res) => {
   });
 });
 
-router.get('/:id/posts', validateUserId, validatePost,  (req, res) => {
+router.get('/:id/posts',   (req, res) => {
   db.getUserPosts(req.params.id)
   .then(posts =>{
     !posts ? res.status(500).json({ message: "The post with the specified ID does not exist." }) : res.status(200).json(posts);
@@ -74,7 +74,7 @@ router.get('/:id/posts', validateUserId, validatePost,  (req, res) => {
   });
 });
 
-router.delete('/:id', validateUserId, (req, res) => {
+router.delete('/:id',  (req, res) => {
   db.remove(req.params.id)
     .then(removed => {
         removed > 0 ? res.status(200).json({ message: 'post successfully deleted' }) : res.status(404).json({ message: "The post with the specified ID does not exist." });
@@ -85,7 +85,7 @@ router.delete('/:id', validateUserId, (req, res) => {
     })
 });
 
-router.put('/:id', validateUserId, (req, res) => {
+router.put('/:id',  (req, res) => {
   const changes = req.body;
   const id = req.params.id;
   const { user } = id;
